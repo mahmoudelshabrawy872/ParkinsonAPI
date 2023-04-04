@@ -5,10 +5,11 @@ using Parkinson_DataAccess.Repository.IRepository;
 using Parkinson_Models.Dto;
 using System.Net;
 
-namespace Parkinson_API.Controllers
+namespace Parkinson_API.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v{vertion:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class Test1Controller : ControllerBase
     {
         private readonly IUniteOfWork _repository;
@@ -21,6 +22,7 @@ namespace Parkinson_API.Controllers
         }
 
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> getall()
         {
             var X = await _repository.Test1.GetAllAsync();
