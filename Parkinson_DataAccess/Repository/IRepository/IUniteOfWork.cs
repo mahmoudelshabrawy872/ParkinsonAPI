@@ -4,8 +4,5 @@
     {
         ITest1Repository Test1 { get; }
 
-
-
-
     }
 }
