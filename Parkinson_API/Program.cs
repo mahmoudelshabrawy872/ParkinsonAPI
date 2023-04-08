@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Parkinson_API.Helpers.AutoMapper;
 using Parkinson_DataAccess.Data;
 using Parkinson_DataAccess.Repository;
 using Parkinson_DataAccess.Repository.IRepository;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +29,10 @@ builder.Logging.AddConsole();
 
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
-
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddApiVersioning(option =>
 {
     option.AssumeDefaultVersionWhenUnspecified = true;
@@ -51,6 +58,47 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Parkinson",
         Description = "API For Parkinson Mobile Application V2",
     });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme()
+            {
+                Reference = new OpenApiReference()
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+
+            },
+            new List<string>()
+        }
+
+    });
+});
+builder.Services.AddAuthentication(a =>
+{
+    a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(z =>
+{
+    z.RequireHttpsMetadata = false;
+    z.SaveToken = true;
+    z.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("APISetting:secret"))),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
 });
 
 var app = builder.Build();
@@ -67,7 +115,7 @@ app.UseSwaggerUI(options =>
 //}
 app.Map("/", () => Results.Redirect("/swagger"));
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

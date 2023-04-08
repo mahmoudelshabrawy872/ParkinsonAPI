@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Parkinson_Models;
 using Parkinson_Models.Dto;
 
@@ -10,6 +11,8 @@ namespace Parkinson_API.Helpers.AutoMapper
         public MappingConfig()
         {
             CreateMap<Test1, Test1Dto>().ReverseMap();
+            CreateMap<UserDto, IdentityUser>().ReverseMap();
+
         }
     }
 }
