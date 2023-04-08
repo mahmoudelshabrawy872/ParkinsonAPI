@@ -19,9 +19,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options
     .UseSqlServer(builder
     .Configuration
     .GetConnectionString("Default")));
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
-
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 builder.Services.AddApiVersioning(option =>
