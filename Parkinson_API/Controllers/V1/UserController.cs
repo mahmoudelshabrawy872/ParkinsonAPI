@@ -6,6 +6,7 @@ namespace Parkinson_API.Controllers.V1
 {
     [Route("Api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _user;

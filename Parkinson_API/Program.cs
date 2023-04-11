@@ -31,7 +31,14 @@ builder.Logging.AddConsole();
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    //options.Password.RequireDigit = false;
+    //options.Password.RequiredLength = 4;
+    //options.Password.RequireNonAlphanumeric = false;
+    //options.Password.RequireUppercase = false;
+    //options.Password.RequireLowercase = false;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddApiVersioning(option =>
 {
@@ -100,6 +107,8 @@ builder.Services.AddAuthentication(a =>
         ValidateAudience = false
     };
 });
+
+
 
 var app = builder.Build();
 

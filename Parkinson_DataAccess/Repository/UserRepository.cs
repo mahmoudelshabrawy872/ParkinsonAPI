@@ -90,32 +90,26 @@ namespace Parkinson_DataAccess.Repository
                 Email = registrationRequestDto.UserName,
                 NormalizedEmail = registrationRequestDto.UserName.ToUpper(),
                 UserName = registrationRequestDto.UserName,
+
             };
             try
             {
+                var isValidRole = await _RoleManager.FindByNameAsync(registrationRequestDto.Role);
+                if (isValidRole is null)
+                {
+                    user = null;
+                    return null;
+                }
                 var result = await _userManager.CreateAsync(user, registrationRequestDto.Password);
                 if (result.Succeeded)
                 {
-
-                    var isValidRole = await _RoleManager.FindByNameAsync(registrationRequestDto.Role);
-                    if (isValidRole is null)
-                    {
-                        user = null;
-                        return null;
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, registrationRequestDto.Role);
-                        var userToReturn = await _context.IdentityUsers.FirstOrDefaultAsync(
-                                u => u.UserName == registrationRequestDto.UserName);
-                        return _mapper.Map<UserDto>(userToReturn);
-                    }
-
-
+                    await _userManager.AddToRoleAsync(user, registrationRequestDto.Role);
+                    var userToReturn = await _context.IdentityUsers.FirstOrDefaultAsync(
+                            u => u.UserName == registrationRequestDto.UserName);
+                    return _mapper.Map<UserDto>(userToReturn);
                 }
                 else
                 {
-                    var error = result.Errors;
                     user = null;
                     return null;
                 }
