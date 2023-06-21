@@ -42,6 +42,13 @@ namespace Parkinson_DataAccess.Repository
             await SaveAsync();
         }
 
+        public async Task<IEnumerable<T>> CreateListAsync(IEnumerable<T> entity)
+        {
+            await dbSet.AddRangeAsync(entity);
+            await SaveAsync();
+            return entity;
+        }
+
         public async Task DeleteAsync(T entity)
         {
             dbSet.Remove(entity);

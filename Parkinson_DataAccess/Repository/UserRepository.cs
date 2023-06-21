@@ -25,7 +25,7 @@ namespace Parkinson_DataAccess.Repository
         {
             _context = context;
             _userManager = userManager;
-            secretkey = configuration.GetValue<string>("APISetting:secret");
+            // secretkey = configuration.GetValue<string>("APISetting:secret");
             _mapper = mapper;
             _RoleManager = RoleManager;
 
