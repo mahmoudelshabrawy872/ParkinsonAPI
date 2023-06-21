@@ -11,9 +11,10 @@ namespace Parkinson_DataAccess.Data
         {
 
         }
-        public DbSet<Test1> Test1s { get; set; }
+        public DbSet<Test> Tests { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<PatientTest> PatientTests { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<IdentityUser> IdentityUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

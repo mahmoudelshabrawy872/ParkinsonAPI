@@ -4,20 +4,20 @@ using Parkinson_Models;
 
 namespace Parkinson_DataAccess.Repository
 {
-    public class Test1Repository : Repository<Test1>, ITest1Repository
+    public class TestRepository : Repository<Test>, ITestRepository
     {
         private ApplicationDbContext _context;
-        public Test1Repository(ApplicationDbContext context) : base(context)
+        public TestRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
 
-        public async Task<Test1> UpdateTestAsync(Test1 test1)
+        public async Task<Test> UpdateTestAsync(Test test)
         {
-            _context.Test1s.Update(test1);
+            _context.Tests.Update(test);
             await _context.SaveChangesAsync();
-            return test1;
+            return test;
         }
     }
 }

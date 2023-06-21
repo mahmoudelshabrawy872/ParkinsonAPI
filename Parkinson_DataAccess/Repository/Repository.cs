@@ -36,10 +36,11 @@ namespace Parkinson_DataAccess.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-        public async Task CreateAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             await dbSet.AddAsync(entity);
             await SaveAsync();
+            return entity;
         }
 
         public async Task<IEnumerable<T>> CreateListAsync(IEnumerable<T> entity)

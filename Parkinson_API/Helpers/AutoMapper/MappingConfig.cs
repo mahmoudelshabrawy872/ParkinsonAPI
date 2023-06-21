@@ -10,7 +10,7 @@ namespace Parkinson_API.Helpers.AutoMapper
     {
         public MappingConfig()
         {
-            CreateMap<Test1, Test1Dto>().ReverseMap();
+            CreateMap<Test, TestDto>().ReverseMap();
             CreateMap<UserDto, IdentityUser>().ReverseMap();
             CreateMap<RegistrationRequestDto, DoctorRegisterRequestDto>().ReverseMap();
             CreateMap<Doctor, DoctorRegisterRequestDto>().ReverseMap();

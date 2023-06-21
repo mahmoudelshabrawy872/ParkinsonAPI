@@ -25,11 +25,11 @@ namespace Parkinson_API.Controllers.V1
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> getall()
         {
-            var X = await _repository.Test1.GetAllAsync();
+            var X = await _repository.Test.GetAllAsync();
 
-            var R = _mapping.Map<List<Test1Dto>>(X);
+            var R = _mapping.Map<List<TestDto>>(X);
 
-            var resalut = new ResponseGenerator<List<Test1Dto>>(HttpStatusCode.OK, true, R, new List<ResponseErrorMessage>());
+            var resalut = new ResponseGenerator<List<TestDto>>(HttpStatusCode.OK, true, R, new List<ResponseErrorMessage>());
             return new JsonResult(resalut.Generate());
 
         }

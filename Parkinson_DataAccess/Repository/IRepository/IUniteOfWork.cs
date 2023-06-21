@@ -2,7 +2,7 @@
 {
     public interface IUniteOfWork
     {
-        ITest1Repository Test1 { get; }
+        ITestRepository Test { get; }
         IImageRepository Image { get; }
 
     }

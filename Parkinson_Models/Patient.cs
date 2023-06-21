@@ -11,5 +11,6 @@ namespace Parkinson_Models
         public string UserId { get; set; }
         public Doctor Doctor { get; set; }
         public int? DoctorId { get; set; }
+        //  public List<Test> Tests { get; } = new();
     }
 }
