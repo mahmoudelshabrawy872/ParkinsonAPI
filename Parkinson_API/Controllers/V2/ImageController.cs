@@ -139,6 +139,38 @@ namespace Parkinson_API.Controllers.V2
             }
         }
 
+        [HttpGet("random")]
+        public async Task<IActionResult> GetRandomImages(short numberOfImages)
+        {
+            string GetImageUrl(Image image)
+            {
+                var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                return $"{baseUrl}/{image.ImageUrl}";
+            }
+            try
+            {
+                var imageEntities = (await _uniteOfWork.Image.GetAllAsync()).ToList();
+                var random = new Random();
+                var randomImages = imageEntities.OrderBy(x => random.Next()).Take(numberOfImages).Select(image => new { Url = GetImageUrl(image) });
+
+                var responseGenerator = new ResponseGenerator<IEnumerable<object>>(HttpStatusCode.OK, true, randomImages, null);
+                return new JsonResult(responseGenerator.Generate());
+            }
+            catch (Exception ex)
+            {
+                var responseGenerator = new ResponseGenerator<object>(HttpStatusCode.InternalServerError, false, null, new()
+                {
+                    new()
+                    {
+                        Message = "An error occurred while git the image.",
+                        Title = "BadRequest"
+                    }
+                });
+                return new JsonResult(responseGenerator.Generate());
+            }
+        }
+
+
 
     }
 }
