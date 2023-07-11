@@ -4,6 +4,12 @@
     {
         ITestRepository Test { get; }
         IImageRepository Image { get; }
+        IMemoryTestRepository Memory { get; }
+        IClickTestRepository Click { get; }
+        ISpiralTestRepository Spiral { get; }
+        IReactionTestRepository Reaction { get; }
+
+
 
     }
 }

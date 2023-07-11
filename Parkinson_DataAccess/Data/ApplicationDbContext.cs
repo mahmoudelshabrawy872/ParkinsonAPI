@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Parkinson_Models;
+using Parkinson_Models.Dto;
 
 namespace Parkinson_DataAccess.Data
 {
@@ -14,8 +15,11 @@ namespace Parkinson_DataAccess.Data
         public DbSet<Test> Tests { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<PatientTest> PatientTests { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<ClickTest> ClickTests { get; set; }
+        public DbSet<ReactionTest> ReactionTests { get; set; }
+        public DbSet<SpiralTest> SpiralTests { get; set; }
+        public DbSet<MemoryTest> MemoryTests { get; set; }
         public DbSet<IdentityUser> IdentityUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

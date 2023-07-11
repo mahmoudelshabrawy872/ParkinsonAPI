@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Configuration.Binder">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\7.0.3\ref\net7.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\7.0.7\ref\net7.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
     </Reference>
   </ItemGroup>
 

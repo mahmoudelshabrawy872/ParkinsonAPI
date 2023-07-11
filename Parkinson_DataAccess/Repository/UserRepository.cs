@@ -21,14 +21,14 @@ namespace Parkinson_DataAccess.Repository
         private readonly IMapper _mapper;
         private readonly RoleManager<IdentityRole> _RoleManager;
 
+
         public UserRepository(ApplicationDbContext context, IConfiguration configuration, UserManager<IdentityUser> userManager, IMapper mapper, RoleManager<IdentityRole> RoleManager)
         {
             _context = context;
             _userManager = userManager;
-            // secretkey = configuration.GetValue<string>("APISetting:secret");
+            secretkey = configuration.GetValue<string>("APISetting:secret");
             _mapper = mapper;
             _RoleManager = RoleManager;
-
         }
         public bool IsuniqueUser(string username)
         {
@@ -71,16 +71,42 @@ namespace Parkinson_DataAccess.Repository
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
+            var id = GetUserIdByUserName(user.UserName);
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             LoginResponseDto loginResponseDto = new()
             {
                 Token = tokenHandler.WriteToken(token),
-                User = _mapper.Map<UserDto>(user)
+                User = _mapper.Map<UserDto>(user),
+                Id = id
+
 
 
             };
             return loginResponseDto;
         }
+
+
+        public int GetUserIdByUserName(string? userName)
+        {
+            var userDoctor = (_context.Doctors.FirstOrDefault(doctor => doctor.User.UserName == userName));
+            var userPatient = _context.Patients.FirstOrDefault(doctor => doctor.User.UserName == userName);
+            if (userPatient is not null)
+            {
+                return userPatient.Id;
+            }
+
+            if (userDoctor is not null)
+            {
+                return userDoctor.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+
 
         public async Task<UserDto> Register(RegistrationRequestDto registrationRequestDto)
         {

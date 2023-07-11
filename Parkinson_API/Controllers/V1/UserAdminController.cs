@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parkinson_DataAccess.Repository.IRepository;
 using Parkinson_Models.Dto;
 
@@ -7,12 +8,13 @@ namespace Parkinson_API.Controllers.V1
     [Route("Api/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class UserController : ControllerBase
+    [Authorize(Roles = "Admin")]
+    public class UserAdminController : ControllerBase
     {
         private readonly IUserRepository _user;
 
 
-        public UserController(IUserRepository user)
+        public UserAdminController(IUserRepository user)
         {
             _user = user;
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parkinson_API.Helpers.Response;
 using Parkinson_DataAccess.Repository.IRepository;
 using Parkinson_Models;
@@ -10,6 +11,7 @@ namespace Parkinson_API.Controllers.V2
     [ApiController]
     [ApiVersion("2.0")]
     [Route("api/v{vertion:apiVersion}/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class ImageController : ControllerBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

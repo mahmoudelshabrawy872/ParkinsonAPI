@@ -6,7 +6,7 @@ namespace Parkinson_Models
     public class Doctor
     {
         [Required]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [MaxLength(250)]
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
