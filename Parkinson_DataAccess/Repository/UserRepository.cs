@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 
 
+
 namespace Parkinson_DataAccess.Repository
 {
     public class UserRepository : IUserRepository
@@ -26,7 +27,8 @@ namespace Parkinson_DataAccess.Repository
         {
             _context = context;
             _userManager = userManager;
-            secretkey = configuration.GetValue<string>("APISetting:secret");
+            //    secretkey = configuration.GetValue<string>("APISetting:secret");
+            secretkey = configuration["APISetting:secret"];
             _mapper = mapper;
             _RoleManager = RoleManager;
         }
@@ -71,38 +73,34 @@ namespace Parkinson_DataAccess.Repository
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var id = GetUserIdByUserName(user.UserName);
+            var u = GetUserIdByUserName(user.UserName);
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             LoginResponseDto loginResponseDto = new()
             {
                 Token = tokenHandler.WriteToken(token),
-                User = _mapper.Map<UserDto>(user),
-                Id = id
-
-
-
+                User = u
             };
             return loginResponseDto;
         }
 
 
-        public int GetUserIdByUserName(string? userName)
+        public object GetUserIdByUserName(string? userName)
         {
             var userDoctor = (_context.Doctors.FirstOrDefault(doctor => doctor.User.UserName == userName));
             var userPatient = _context.Patients.FirstOrDefault(doctor => doctor.User.UserName == userName);
             if (userPatient is not null)
             {
-                return userPatient.Id;
+                return userPatient;
             }
 
             if (userDoctor is not null)
             {
-                return userDoctor.Id;
+                return userDoctor;
             }
             else
             {
-                return 0;
+                return null;
             }
         }
 

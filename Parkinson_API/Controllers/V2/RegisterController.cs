@@ -45,14 +45,7 @@ namespace Parkinson_API.Controllers.V2
                     };
                     await _context.AddAsync(doctor);
                     await _context.SaveChangesAsync();
-                    var jsonResult = new ResponseGenerator<DoctorRegisterResponseDto>(HttpStatusCode.OK, true, new DoctorRegisterResponseDto()
-                    {
-                        DateOfBirth = doctor.DateOfBirth,
-                        Name = doctor.Name,
-                        PhoneNumber = user.PhoneNumber,
-                        UserName = user.UserName
-
-                    }, new List<ResponseErrorMessage>());
+                    var jsonResult = new ResponseGenerator<Doctor>(HttpStatusCode.OK, true, doctor, new List<ResponseErrorMessage>());
                     return new JsonResult(jsonResult.Generate());
                 }
                 else
@@ -95,17 +88,11 @@ namespace Parkinson_API.Controllers.V2
                         Name = dto.UserName,
                         DateOfBirth = dto.DateOfBirth,
                         UserId = user.Id,
+                        DoctorId = dto.DoctorId
                     };
                     await _context.AddAsync(patient);
                     await _context.SaveChangesAsync();
-                    var jsonResult = new ResponseGenerator<PatientRegisterRequestDto>(HttpStatusCode.OK, true, new PatientRegisterRequestDto()
-                    {
-                        DateOfBirth = patient.DateOfBirth,
-                        Name = patient.Name,
-                        PhoneNumber = user.PhoneNumber,
-                        UserName = user.UserName
-
-                    }, new List<ResponseErrorMessage>());
+                    var jsonResult = new ResponseGenerator<Patient>(HttpStatusCode.OK, true, patient, new List<ResponseErrorMessage>());
                     return new JsonResult(jsonResult.Generate());
 
                 }

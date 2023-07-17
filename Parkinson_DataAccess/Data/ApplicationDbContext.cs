@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Parkinson_Models;
-using Parkinson_Models.Dto;
 
 namespace Parkinson_DataAccess.Data
 {
@@ -31,6 +30,8 @@ namespace Parkinson_DataAccess.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaim");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
+
+
         }
     }
 }

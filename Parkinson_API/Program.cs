@@ -26,7 +26,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options
     .GetConnectionString("Default")));
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

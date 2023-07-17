@@ -244,7 +244,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("ClickTests");
+                    b.ToTable("ClickTests", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.Doctor", b =>
@@ -271,7 +271,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.Image", b =>
@@ -288,7 +288,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.MemoryTest", b =>
@@ -312,7 +312,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("MemoryTests");
+                    b.ToTable("MemoryTests", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.Patient", b =>
@@ -343,7 +343,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.ReactionTest", b =>
@@ -367,7 +367,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("ReactionTests");
+                    b.ToTable("ReactionTests", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.SpiralTest", b =>
@@ -391,7 +391,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("SpiralTests");
+                    b.ToTable("SpiralTests", (string)null);
                 });
 
             modelBuilder.Entity("Parkinson_Models.Test", b =>
@@ -408,7 +408,7 @@ namespace Parkinson_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
